@@ -39,12 +39,6 @@ Personal/
 
 ---
 
-## 🔐 Important — Remove Secrets
-I found a **hard-coded PostgreSQL password** in `Personal/contact3.php`.  
-Please **do NOT commit secrets**. Use the provided `config.example.php` and `.gitignore` below.
-
----
-
 ## 🚀 Local Setup
 1. Place the `Personal/` folder into your local server root (e.g., `htdocs` for XAMPP/WAMP).  
 2. Create `config.php` from the example:
@@ -97,10 +91,6 @@ This project includes **PHPMailer** in `/Personal/PHPMailer`. No Composer requir
 
 ---
 
-## 📜 License
-Add an open-source license if you wish (MIT recommended).
-
----
-
+#
 ## 🙌 Credits
 This site uses assets and vendor libraries such as Bootstrap, AOS, GLightbox, Isotope, Swiper, RemixIcon, and Bootstrap Icons.
