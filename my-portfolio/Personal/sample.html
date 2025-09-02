@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 3rem;
+  }
+
+  .about-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 1.5rem;
+    color: white;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .card-title h3 {
+    font-size: 1rem;
+    color: #aaa;
+  }
+
+  .card-title h1 {
+    font-size: 1.8rem;
+    color: white;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+
+  .card-intro .role {
+    font-size: 1.2rem;
+    color: #00ffaa;
+  }
+
+  .info-columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .info-columns ul {
+    list-style: none;
+    padding: 0;
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  .card-summary p {
+    font-size: 0.95rem;
+    color: #ddd;
+  }
+
+  @media (max-width: 768px) {
+    .info-columns {
+      flex-direction: column;
+    }
+  }
+</style>
+</head>
+<body>
+    <section id="about" class="section">
+  <h2 class="invisible-title">About</h2>
+  <div class="about-grid">
+
+    <div class="about-card card-title">
+      <h3>About</h3>
+      <h1>Learn More About Me</h1>
+    </div>
+
+    <div class="about-card card-image">
+      <img src="your-image.jpg" alt="Abhishek Nangare" />
+    </div>
+
+    <div class="about-card card-intro">
+      <h3 class="role">Web Developer</h3>
+      <p><em>Hi there! I'm a web developer specializing in crafting interactive and user-friendly websites. With skills in HTML, CSS, JavaScript, and various frameworks like Django.</em></p>
+    </div>
+
+    <div class="about-card card-details">
+      <div class="info-columns">
+        <ul>
+          <li><strong>Birthday:</strong> 30 May 2004</li>
+          <li><strong>Website:</strong> abhisheknangare.interns-es.in</li>
+          <li><strong>Phone:</strong> +91 85302 91489</li>
+          <li><strong>City:</strong> Pune, Maharashtra</li>
+        </ul>
+        <ul>
+          <li><strong>Age:</strong> 20</li>
+          <li><strong>Degree:</strong> Undergraduate-Present</li>
+          <li><strong>Email:</strong> abhisheknangare5@gmail.com</li>
+          <li><strong>Freelance:</strong> Available</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="about-card card-summary">
+      <p>
+        As a fresh web developer eager to contribute effectively, I bring a passion for creating impactful digital experiences. With a solid foundation in coding languages such as HTML, CSS, and JavaScript, I am equipped to build responsive and user-friendly websites. I am committed to delivering high-quality work, adhering to best practices in web development and continuously learning to stay updated with the latest trends and technologies. My goal is to collaborate closely with teams, contribute innovative ideas, and deliver solutions that exceed expectations.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<?php
+/**
+ * Unified contact handler using PHPMailer + optional PostgreSQL storage (PDO).
+ * Place this file at: Personal/forms/contact.php (replace existing) or use a new endpoint.
+ */
+
+require_once __DIR__ . "/../PHPMailer/PHPMailer.php";
+require_once __DIR__ . "/../PHPMailer/SMTP.php";
+require_once __DIR__ . "/../PHPMailer/Exception.php";
+require_once __DIR__ . "/../config.php";
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+// Validate POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+  http_response_code(405);
+  echo "Method not allowed";
+  exit;
+}
+
+$name    = trim($_POST['name'] ?? '');
+$email   = trim($_POST['email'] ?? '');
+$subject = trim($_POST['subject'] ?? 'New message from portfolio');
+$message = trim($_POST['message'] ?? '');
+
+if (!$name || !$email || !$message) {
+  http_response_code(422);
+  echo "Please fill all required fields.";
+  exit;
+}
+
+// Send email
+$mail = new PHPMailer(true);
+try {
+  $mail->isSMTP();
+  $mail->Host       = $SMTP_HOST;
+  $mail->SMTPAuth   = true;
+  $mail->Username   = $SMTP_USER;
+  $mail->Password   = $SMTP_PASS;
+  $mail->SMTPSecure = $SMTP_SECURE;
+  $mail->Port       = $SMTP_PORT;
+
+  $mail->setFrom($FROM_EMAIL, $FROM_NAME);
+  $mail->addAddress($SMTP_USER); // send to yourself/inbox
+  $mail->addReplyTo($email, $name);
+
+  $mail->isHTML(true);
+  $mail->Subject = $subject;
+  $mail->Body    = nl2br(htmlspecialchars($message)) . "<br><br>From: " . htmlspecialchars($name) . " (" . htmlspecialchars($email) . ")";
+  $mail->AltBody = $message . "\n\nFrom: $name ($email)";
+
+  $mail->send();
+} catch (Exception $e) {
+  http_response_code(500);
+  echo "Mailer Error: " . $mail->ErrorInfo;
+  exit;
+}
+
+// Optional: Save to PostgreSQL
+try {
+  $dsn = "pgsql:host={$DB_HOST};dbname={$DB_NAME}";
+  $pdo = new PDO($dsn, $DB_USER, $DB_PASS, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+  $stmt = $pdo->prepare("INSERT INTO contact_form (name, email, subject, message) VALUES (:n,:e,:s,:m)");
+  $stmt->execute([":n"=>$name, ":e"=>$email, ":s"=>$subject, ":m"=>$message]);
+} catch (Exception $e) {
+  // Log error if you want, but don't block the response
+}
+
+echo "OK";
+?>
